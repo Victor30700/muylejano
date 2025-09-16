@@ -40,29 +40,38 @@ export default function MuyLejano() {
   const [showWhatsApp, setShowWhatsApp] = useState(false);
 
   const audios = [
-    "/audios/audio1.mp3",
-    "/audios/audio2.mp3",
-    "/audios/audio3.mp3",
-    "/audios/audio4.mp3",
-    "/audios/audio5.mp3",
-    "/audios/audio6.mp3",
-    "/audios/audio7.mp3",
-    "/audios/audio8.mp3",
-    "/audios/audio9.mp3",
-    "/audios/audio10.mp3",
-    "/audios/audio11.mp3",
-    "/audios/audio12.mp3",
-    "/audios/audio13.mp3",
-    "/audios/audio14.mp3",
-    "/audios/audio15.mp3",
-    "/audios/audio16.mp3",
-    "/audios/audiofinal.mp3",
+    "/audios/audio1.mp3", // índice 0 - habilita imagen fercochi
+    "/audios/audio2.mp3", // índice 1 - habilita imagen yo1
+    "/audios/audio3.mp3", // índice 2 - habilita imagen fercochi
+    "/audios/audio4.mp3", // índice 3 - habilita imagen yo1
+    "/audios/audio5.mp3", // índice 4 - habilita imagen fercochi
+    "/audios/audio6.mp3", // índice 5 - habilita imagen yo1
+    "/audios/audio7.mp3", // índice 6 - habilita imagen fercochi
+    "/audios/audio8.mp3", // índice 7 - habilita imagen yo1
+    "/audios/audio9.mp3", // índice 8 - habilita imagen fercochi
+    "/audios/audio10.mp3", // índice 9 - habilita imagen yo1
+    "/audios/audio11.mp3", // índice 10 - habilita imagen fercochi
+    "/audios/audio12.mp3", // índice 11 - habilita imagen yo1
+    "/audios/deveritas.mp3", // índice 12 - habilita imagen fercochi
+    "/audios/no.mp3", // índice 13 - habilita imagen yo1
+    "/audios/audio13.mp3", // índice 14 - habilita ambas imagenes (fercochi y yo1)
+    "/audios/audio14.mp3", // índice 15 - habilita ambas imagenes (fercochi y yo1)
+    "/audios/audio15.mp3", // índice 16 - habilita ambas imagenes (fercochi y yo1)
+    "/audios/audio16.mp3", // índice 17 - habilita ambas imagenes (fercochi y yo1)
+    "/audios/audiofinal.mp3", // índice 18 - habilita pantalla final con rosas amarillas y mensaje
   ];
 
-  const bothImageIndices = [12, 13, 14, 15];
-  const finalIndex = audios.length - 1;
+  const bothImageIndices = [14, 15, 16, 17]; // audio13, audio14, audio15, audio16
+  const finalIndex = audios.length - 1; // índice 18 para audiofinal
   const isFinal = currentIndex === finalIndex;
   const isBothImages = bothImageIndices.includes(currentIndex);
+
+  // Función para determinar qué imagen mostrar basándose en el índice
+  const shouldShowFercochi = (index) => {
+    // Los índices pares (0,2,4,6,8,10,12) muestran fercochi
+    // Los índices impares (1,3,5,7,9,11,13) muestran yo1
+    return index % 2 === 0;
+  };
 
   useEffect(() => {
     if (isFinal && !isPlaying) {
@@ -88,12 +97,12 @@ export default function MuyLejano() {
       setIsImageTalking(false);
       
       // Corregir el problema del audio 16 infinito
-      if (index === 15) { // audio16.mp3 (índice 15)
+      if (index === 17) { // audio16.mp3 (índice 17)
         // Pasar al audio final después de que termine audio16
         setTimeout(() => {
-          setCurrentIndex(16); // Ir al audiofinal
+          setCurrentIndex(18); // Ir al audiofinal
         }, 500);
-      } else if (index === 16) { // audiofinal.mp3
+      } else if (index === 18) { // audiofinal.mp3
         // No hacer nada automático, dejar que el usuario interactúe
       } else {
         // Para todos los otros audios, continuar normalmente
@@ -105,8 +114,9 @@ export default function MuyLejano() {
   const handlePlay = () => {
     if (isPlaying || currentIndex > finalIndex) return;
 
+    // Solo cambiar la imagen si no es final ni ambas imágenes
     if (!isFinal && !isBothImages) {
-      setShowFercochi((prev) => !prev);
+      setShowFercochi(shouldShowFercochi(currentIndex));
     }
 
     playAudio(currentIndex);
@@ -125,7 +135,7 @@ export default function MuyLejano() {
       <FloatingHearts />
       <div className="container">
         <h1 className="title">
-          💝 Mi sorpresa para ti - Muy Lejano 💝
+          💝 Mi sorpresa para ti - Muy muy Lejano 💝
         </h1>
 
         <div className="stage">
@@ -178,8 +188,8 @@ export default function MuyLejano() {
           ) : (
             <div key={`single-${showFercochi ? "fer" : "yo"}-${currentIndex}`} className="single-image-wrap">
               <img
-                src={showFercochi ? "/yo1.WebP" : "/fercochi.WebP"}
-                alt={showFercochi ? "Yo1" : "Fercochi"}
+                src={showFercochi ? "/fercochi.WebP" : "/yo1.WebP"}
+                alt={showFercochi ? "Fercochi" : "Yo1"}
                 className={`single-image ${isImageTalking ? 'talking' : ''}`}
               />
             </div>
