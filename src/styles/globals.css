@@ -1,0 +1,233 @@
+/* src/styles/globals.css - estilos y animaciones */
+
+/* reset ligero */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body, #root { height: 100%; }
+body {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: linear-gradient(180deg, #0f172a 0%, #071029 100%);
+  color: #fff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* contenedor principal */
+.home-root {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 34px 20px;
+}
+
+.container {
+  width: 100%;
+  max-width: 980px;
+  text-align: center;
+}
+
+/* título */
+.title {
+  font-size: 1.9rem;
+  margin-bottom: 20px;
+  letter-spacing: 0.2px;
+}
+
+/* escenario de imágenes */
+.stage {
+  width: 100%;
+  height: 420px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+  box-shadow: 0 10px 30px rgba(2,6,23,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-bottom: 20px;
+  position: relative;
+  padding: 18px;
+}
+
+/* imagen individual */
+.single-image-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.single-image {
+  width: 70%;
+  max-width: 520px;
+  height: auto;
+  border-radius: 16px;
+  object-fit: cover;
+  box-shadow: 0 12px 40px rgba(3,7,18,0.6);
+  transform-origin: center;
+}
+
+/* cuando se muestran ambas imágenes */
+.both-images {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 12px;
+}
+.side-image {
+  width: 46%;
+  max-width: 420px;
+  height: auto;
+  border-radius: 14px;
+  object-fit: cover;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+}
+
+/* controles */
+.controls {
+  margin-top: 16px;
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.play-button {
+  background: linear-gradient(90deg, #ff6b6b, #ffb86b);
+  border: none;
+  padding: 12px 26px;
+  border-radius: 999px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #081122;
+  box-shadow: 0 8px 30px rgba(255,107,107,0.12), 0 2px 6px rgba(0,0,0,0.35);
+  transition: transform .18s ease, opacity .12s ease;
+}
+.play-button:active { transform: translateY(2px) scale(0.997); }
+.play-button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+.status {
+  margin-top: 10px;
+  color: #cfe8ff;
+  font-size: 0.95rem;
+}
+
+/* Pantalla final (animación de 'rosas amarillas' y mensaje) */
+.final-screen {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 24px;
+}
+
+/* Mensaje final */
+.final-message {
+  z-index: 40;
+  text-align: center;
+  color: #061426;
+  background: linear-gradient(180deg, rgba(255,250,230,0.95), rgba(255,245,205,0.9));
+  padding: 18px 22px;
+  border-radius: 14px;
+  box-shadow: 0 12px 40px rgba(2,6,23,0.35);
+  margin-top: 10px;
+}
+.final-message h2 {
+  color: #2b2b2b;
+  font-size: 1.6rem;
+  margin-bottom: 6px;
+}
+.final-message .final-sub {
+  color: #3b2b2b;
+  font-size: 1.05rem;
+}
+
+/* Botón flotante de WhatsApp */
+.whatsapp-fab {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 120;
+  background: linear-gradient(90deg,#25D366,#06b24b);
+  color: white;
+  padding: 12px 16px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 700;
+  box-shadow: 0 12px 30px rgba(6,140,82,0.18);
+  transform: translateZ(0);
+}
+
+/* Animación de 'roses' (usamos flores amarillas emoji 🌼 como sustituto visual de rosas amarillas)
+   Cada .rose se anima hacia arriba con rotación y desvanecimiento.
+*/
+.roses-wrap {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 20;
+  overflow: hidden;
+}
+
+/* Base style for each floating flower */
+.rose {
+  position: absolute;
+  font-size: 28px;
+  opacity: 0;
+  transform-origin: center;
+  filter: drop-shadow(0 6px 18px rgba(12,10,30,0.35));
+}
+
+/* Different starting positions and animation durations to look natural */
+.r1 { left: 10%;  bottom: -40px; animation: floatUp 8s linear infinite 0s; }
+.r2 { left: 30%;  bottom: -20px; animation: floatUp 6.6s linear infinite 1s; font-size: 34px; }
+.r3 { left: 50%;  bottom: -30px; animation: floatUp 7.5s linear infinite 0.6s; font-size: 30px; }
+.r4 { left: 70%;  bottom: -10px; animation: floatUp 9s linear infinite 0.3s; font-size: 36px; }
+.r5 { left: 80%;  bottom: -40px; animation: floatUp 6.2s linear infinite 1.2s; font-size: 28px; }
+.r6 { left: 20%;  bottom: -60px; animation: floatUp 10s linear infinite 0.2s; font-size: 32px; }
+.r7 { left: 42%;  bottom: -40px; animation: floatUp 8.8s linear infinite 0.7s; font-size: 34px; }
+.r8 { left: 62%;  bottom: -70px; animation: floatUp 7.8s linear infinite 1.4s; font-size: 30px; }
+
+/* keyframes for floating up and fading out */
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) rotate(0deg) scale(0.95);
+    opacity: 0;
+    filter: blur(0);
+  }
+  6% {
+    opacity: 1;
+  }
+  40% {
+    transform: translateY(-180px) rotate(18deg) scale(1.06);
+  }
+  70% {
+    transform: translateY(-300px) rotate(-6deg) scale(1.02);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(-520px) rotate(28deg) scale(0.9);
+    opacity: 0;
+  }
+}
+
+/* Responsiveness */
+@media (max-width: 900px) {
+  .single-image { width: 90%; }
+  .side-image { width: 48%; }
+  .stage { height: 360px; }
+  .title { font-size: 1.5rem; }
+}
+@media (max-width: 480px) {
+  .stage { height: 320px; padding: 12px; }
+  .single-image { width: 95%; border-radius: 12px; }
+  .side-image { width: 48%; }
+  .play-button { padding: 10px 16px; }
+  .whatsapp-fab { right: 12px; bottom: 12px; padding: 10px 12px; }
+}
